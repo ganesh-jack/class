@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous">
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  People
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="http://www.psgtech.edu/prografac.php" target="_blank">Staffs</a>
+                  <a class="dropdown-item" href="{% url 'students' %}">students</a>
+                </div>
+              </li>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <form action="/search/" class="form-inline my-2 my-lg-0 pb-3" method="POST">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="keyword">
+            <button class= "btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <a class="list-group-item list-group-item-light" href="{% url 'blog-home' %}">Latest Posts</a>
+                <a class="list-group-item list-group-item-light" href='https://ecampus.psgtech.ac.in/' target="_blank">Ecampus</a>
+                <a class="list-group-item list-group-item-light" href='http://www.psgtech.edu/' target="_blank">PSG Tech</a>
+                <a class="list-group-item list-group-item-light" href='http://www.psgtech.edu/hostel/' target="_blank">PSG Tech hostel</a>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+<footer>
+  <div class="container-fluid pl-2">
+    <div class="row text-left">
+      <div class="col-md-5 col-sm-8 ml-2 mt-2">
+        <h4 class="text-light" style="color:red">About us</h4>
+        <p class="text-muted">2020 Batch EEE(SW) students in PSG Tech coimbatore. This page is fully for internal purpose only.</p>        </div>
+      <div class="col-md-4 col-sm-12 mt-2">
+        <h4 class="text-light">Contact Us</h4>
+        <h5 class="text-light">jack.site.info@gmail.com</h5>
+      </div>
+      <div class="col-md-2 col-sm-12 mt-2">
+        <h4 class="text-light">Follow Us</h4>
+        <div class="column text-light">
+          <a class="fab fa-facebook-f" href="https://www.facebook.com/profile.php?id=100009927934734" target="_blank">
+          </a>
+          <a class="fab fa-instagram col-sm-1" href="https://www.instagram.com/ganeshjackson/" target="_blank">
+          </a>
+          <a class="fab fa-twitter col-sm-1" href="https://twitter.com/ganesh_jackson" target="_blank">
+          </a>
+          <a class="fab fa-youtube col-sm-1" href="https://www.youtube.com/channel/UCIdr9hYPrZ4I_46WD_bCQ7w" target="_blank">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</html>
