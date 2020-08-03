@@ -12,7 +12,7 @@ class Profile(models.Model):
     department = models.CharField(max_length=30, default='EEE' )
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return '{self.user.username} Profile'
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
