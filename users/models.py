@@ -11,6 +11,8 @@ class Profile(models.Model):
     computer_languages_known = models.CharField(max_length=100, default="Languages are not assigned")
     department = models.CharField(max_length=30, default='EEE' )
     working_at = models.CharField(max_length=30, default="Not updated yet")
+    batch = models.PositiveIntegerField(default=2020)
+    contact_email = models.EmailField(default='notset@gmail.com')
 
     def __str__(self):
         return '{self.user.username} Profile'
