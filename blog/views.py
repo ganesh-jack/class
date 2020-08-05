@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
@@ -13,7 +14,7 @@ from .models import Post
 from users.models import Profile
 
 
-def home(request): 
+def home(request):
     context = {
         'posts': Post.objects.all()
     }
@@ -25,7 +26,7 @@ def index(request):
 
 def people(request):
     context = {
-        'users': Profile.objects.filter(department='EEE')
+        'users': Profile.objects.filter(department__regex=r'EEE.*')
     }
     return render(request, 'blog/people.html', context)
 
@@ -34,11 +35,19 @@ def search(request):
     keyword = request.POST.get("keyword")
     if keyword == None:
         keyword = request.data['keyword']
-    user = get_object_or_404(User, username=keyword)
-    context = {
-        'user': Profile.objects.get(user=user)
-    }
-    return render(request, 'blog/user_profile.html', context)
+    try:
+        user = get_object_or_404(User, username=keyword)
+        context = {
+            'user': Profile.objects.get(user=user)
+        }
+        return render(request, 'blog/user_profile.html', context)
+    except:
+        #pattern = r'.*{}.*'.format(keyword)
+        pattern = keyword
+        users = Profile.objects.filter(skillsets__icontains= pattern ) | Profile.objects.filter(tools_known__icontains=pattern) | Profile.objects.filter(computer_languages_known__icontains=pattern)
+        return render(request, 'blog/people.html', {'users': users})
+
+
 
 
 class PostListView(ListView):
@@ -112,4 +121,3 @@ class UserView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         user = Profile.objects.get(user=user)
         return user
- 
