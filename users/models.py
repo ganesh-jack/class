@@ -10,13 +10,14 @@ class Profile(models.Model):
     tools_known = models.CharField(max_length=150, default="No tools are assigned")
     computer_languages_known = models.CharField(max_length=100, default="Languages are not assigned")
     department = models.CharField(max_length=30, default='EEE' )
+    working_at = models.CharField(max_length=30, default="Not updated yet")
 
     def __str__(self):
         return '{self.user.username} Profile'
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
-        
+
         try:
             img = Image.open(self.image.path)
 

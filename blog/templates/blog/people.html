@@ -7,6 +7,7 @@
 				<div class="media-body">
 					<a class="mb-4" href="{% url 'user-posts' user.user %}">Name : {{ user.user }}</a>
 					<p class="text-secondary mt-2"> department : {{ user.department }}</p>
+					<p class="text-secondary"> working at : {{ user.working_at }}</p>
 					<p class="text-secondary">skillsets : {{ user.skillsets }}</p>
 					<p class="text-secondary">tools_known : {{ user.tools_known }}</p>
 					<p class="text-secondary"> computer_languages_known : {{ user.computer_languages_known }}</p>

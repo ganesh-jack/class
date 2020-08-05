@@ -44,9 +44,8 @@ def search(request):
     except:
         #pattern = r'.*{}.*'.format(keyword)
         pattern = keyword
-        users = Profile.objects.filter(skillsets__icontains= pattern ) | Profile.objects.filter(tools_known__icontains=pattern) | Profile.objects.filter(computer_languages_known__icontains=pattern)
+        users = Profile.objects.filter(working_at__icontains= pattern ) |Profile.objects.filter(skillsets__icontains= pattern ) | Profile.objects.filter(tools_known__icontains=pattern) | Profile.objects.filter(computer_languages_known__icontains=pattern)
         return render(request, 'blog/people.html', {'users': users})
-
 
 
 
