@@ -4,16 +4,16 @@
 		<div class="content-section">
 			<div class="media">
 				<img class="account-img mt-3" src="{{ user.image.url }}">
-				<div class="media-body">
-					<a class="mb-4" href="{% url 'user-posts' user.user %}">Name : {{ user.user }}</a>
-					<p class="text-secondary mt-2"> Department : {{ user.department }}</p>
-					<p class="text-secondary"> Working at : {{ user.working_at }}</p>
-					<p class="text-secondary"> Email : {{ user.contact_email }}</p>
-                    <p class="text-secondary"> Batch : {{ user.batch }}</p>
-					<p class="text-secondary">Skillsets : {{ user.skillsets }}</p>
-					<p class="text-secondary">Tools_known : {{ user.tools_known }}</p>
-					<p class="text-secondary"> Computer_languages_known : {{ user.computer_languages_known }}</p>
-				</div>
+<pre>
+<a class="mb-4" href="{% url 'user-posts' user.user %}">Name : {{ user.user }}</a>
+Department : {{ user.department }}
+working at : {{ user.working_at }}
+Email : {{ user.contact_email }}
+Batch : {{ user.batch }}
+Skillsets : {{ user.skillsets }}
+Tools_known : {{ user.tools_known }}
+Computer_languages_known : {{ user.computer_languages_known }}
+</pre>
 			</div>
 		</div>
 	{%endfor%}
